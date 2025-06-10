@@ -81,16 +81,19 @@ namespace MvcDebuggingExam.Controllers
             return View(product);
         }
 
+
         [HttpPost]
-        public IActionResult Delete(int productId)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
         {
-            var product = products.FirstOrDefault(p => p.Id == productId);
+            var product = products.FirstOrDefault(p => p.Id == id);
             if (product != null)
             {
                 products.Remove(product);
             }
             return RedirectToAction(nameof(Index));
         }
+
 
         public IActionResult DeleteConfirmed(int id)
         {
